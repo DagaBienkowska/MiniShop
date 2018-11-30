@@ -1,5 +1,6 @@
 {
-	"users": [{
+	"users": [
+		{
 			"id": 1,
 			"username": "stecalbert",
 			"password": "12345678",
@@ -18,7 +19,8 @@
 			"role" : "user"
 		}
 	],
-	"products": [{
+	"products": [
+		{
 			"id": 1,
 			"name": "kasza",
 			"description": "sypka i fajna",
