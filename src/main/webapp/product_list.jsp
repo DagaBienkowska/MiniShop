@@ -1,3 +1,6 @@
+<%@ page import="com.dagabienkowska.DAO.Products" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.dagabienkowska.DAO.Product" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -15,15 +18,18 @@
         <th width="15%">In Stock</th>
     </tr>
     <%
-        for ()
+        List<Product> productsList = (List<Product>) request.getSession().getAttribute("products");
+
+        for (Product p : productsList){
     %>
     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%=p.getName()%></td>
+        <td><%=p.getDescription()%></td>
+        <td><%=p.getPrice()%></td>
+        <td><%=p.getQuantity()%></td>
         <td width="25%"><button>Add</button></td>
     </tr>
+    <% } %>
 </table>
 <p id="cart" align="right"><button>Show Cart</button></p>
 </body>

@@ -10,6 +10,14 @@ public class Product {
     public Product() {
     }
 
+    public Product(long id, String name, String description, long price, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
     public long getId() {
         return id;
     }
