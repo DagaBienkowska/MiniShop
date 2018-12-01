@@ -14,9 +14,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -25,15 +23,14 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String user = req.getParameter("user");
         String password = req.getParameter("pass");
-        String json = "C:\\Users\\Dagmara\\Projekty\\MiniShop\\src\\main\\webapp\\WEB-INF\\jsonV1_json.js";
+        InputStream input = getServletContext().getResourceAsStream("/WEB-INF/jsonV1_json.js");
         Gson gson = new Gson();
-        BufferedReader buffer = new BufferedReader(new FileReader(json));
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(input, "utf-8"));
 
         Users users = gson.fromJson(buffer, Users.class);
         for (User u : users.getUsers()) {
             String userFromJson = u.getUsername();
             String passwordFromJson = u.getPassword();
-
 
             if (user != null && user.equals(userFromJson)
                     && password != null && password.equals(passwordFromJson)) {

@@ -14,6 +14,9 @@
         <th width="15%">Price</th>
         <th width="15%">In Stock</th>
     </tr>
+    <%
+        for ()
+    %>
     <tr>
         <td></td>
         <td></td>
