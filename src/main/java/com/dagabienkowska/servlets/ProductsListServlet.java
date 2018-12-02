@@ -14,7 +14,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/products")
@@ -25,23 +24,13 @@ public class ProductsListServlet extends HttpServlet {
         InputStream input = getServletContext().getResourceAsStream("/WEB-INF/jsonV1.json");
         Gson gson = new Gson();
         BufferedReader buffer = new BufferedReader(new InputStreamReader(input, "utf-8"));
-        List<Product> productsList = new ArrayList<>();
 
         JsonPOJO products = gson.fromJson(buffer, JsonPOJO.class);
-        for (Product p : products.getProducts()){
-            long id = p.getId();
-            String name = p.getName();
-            String description = p.getDescription();
-            long price = p.getPrice();
-            int quantity = p.getQuantity();
+        List<Product> productsList = products.getProducts();
 
-            Product product = new Product(id, name, description, price, quantity);
-            productsList.add(product);
-
-        }
 
         req.getSession().setAttribute("products", productsList);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("product_list.servlets");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("product_list.jsp");
         requestDispatcher.forward(req, resp);
     }
 }

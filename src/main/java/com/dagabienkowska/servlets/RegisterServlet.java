@@ -4,6 +4,7 @@ import com.dagabienkowska.shop.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +32,6 @@ public class RegisterServlet extends HttpServlet {
 
         List<User> users = dataFromJson.getUsers();
 
-
         User user = new User();
         user.setId(users.size()+1);
         user.setUsername(username);
@@ -42,11 +42,6 @@ public class RegisterServlet extends HttpServlet {
         user.setRole("user");
         users.add(user);
 
-        for (User u : users){
-            resp.getWriter().println(u.getId() + u.getUsername() + u.getPassword());
-        }
-
-
         dataFromJson.setUsers(users);
         Writer writer = new FileWriter(path);
         gson = new GsonBuilder().create();
@@ -54,6 +49,10 @@ public class RegisterServlet extends HttpServlet {
         writer.flush();
         writer.close();
 
+        RequestDispatcher rd = req.getRequestDispatcher("/login.jsp");
+        resp.getWriter()
+                .println("<font color=red>Registration successful. Please log in</font>");
+        rd.include(req, resp);
 
     }
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

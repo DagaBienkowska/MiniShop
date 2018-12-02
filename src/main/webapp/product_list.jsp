@@ -1,4 +1,4 @@
-<%@ page import="com.dagabienkowska.shop.Products" %>
+<%@ page import="com.dagabienkowska.shop.JsonPOJO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.dagabienkowska.shop.Product" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>

@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         if (!isUser) {
-            RequestDispatcher rd = req.getRequestDispatcher("/login.servlets");
+            RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
             resp.getWriter()
                     .println("<font color=red>You are not loged in or put wrong loging data</font>");
             rd.include(req, resp);
