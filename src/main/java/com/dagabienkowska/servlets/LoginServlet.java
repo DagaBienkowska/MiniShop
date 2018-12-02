@@ -1,11 +1,8 @@
-package com.dagabienkowska.jsp;
+package com.dagabienkowska.servlets;
 
-import com.dagabienkowska.DAO.User;
-import com.dagabienkowska.DAO.Users;
+import com.dagabienkowska.shop.JsonPOJO;
+import com.dagabienkowska.shop.User;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,11 +20,12 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String user = req.getParameter("user");
         String password = req.getParameter("pass");
-        InputStream input = getServletContext().getResourceAsStream("/WEB-INF/jsonV1_json.js");
+        InputStream input = getServletContext().getResourceAsStream("/WEB-INF/jsonV1.json");
         Gson gson = new Gson();
         BufferedReader buffer = new BufferedReader(new InputStreamReader(input, "utf-8"));
+        boolean isUser = true;
 
-        Users users = gson.fromJson(buffer, Users.class);
+        JsonPOJO users = gson.fromJson(buffer, JsonPOJO.class);
         for (User u : users.getUsers()) {
             String userFromJson = u.getUsername();
             String passwordFromJson = u.getPassword();
@@ -37,13 +35,17 @@ public class LoginServlet extends HttpServlet {
                 Cookie loginCookie = new Cookie("userInCookie", user);
                 loginCookie.setMaxAge(30 * 60);
                 resp.addCookie(loginCookie);
-                resp.sendRedirect("/product_list.jsp");
+                resp.sendRedirect("/products");
             } else {
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-                resp.getWriter()
-                        .println("<font color=red>Jesteś niezalogowany albo błędne dane.</font>");
-                rd.include(req, resp);
+                isUser = false;
             }
+        }
+
+        if (!isUser) {
+            RequestDispatcher rd = req.getRequestDispatcher("/login.servlets");
+            resp.getWriter()
+                    .println("<font color=red>You are not loged in or put wrong loging data</font>");
+            rd.include(req, resp);
         }
 
 

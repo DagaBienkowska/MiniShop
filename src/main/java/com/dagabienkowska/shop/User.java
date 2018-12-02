@@ -1,4 +1,4 @@
-package com.dagabienkowska.DAO;
+package com.dagabienkowska.shop;
 
 public class User {
     private long id;
@@ -11,6 +11,7 @@ public class User {
 
     public User() {
     }
+
 
     public long getId() {
         return id;

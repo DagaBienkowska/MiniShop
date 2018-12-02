@@ -1,4 +1,4 @@
-package com.dagabienkowska.DAO;
+package com.dagabienkowska.shop;
 
 public class Product {
     private long id;

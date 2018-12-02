@@ -1,10 +1,11 @@
-<%@ page import="com.dagabienkowska.DAO.Products" %>
+<%@ page import="com.dagabienkowska.shop.Products" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.dagabienkowska.DAO.Product" %>
+<%@ page import="com.dagabienkowska.shop.Product" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Frog's Lil Shop</title>
+    <meta charset="UTF-8">
 </head>
 <body>
 <h3>Product List</h3>

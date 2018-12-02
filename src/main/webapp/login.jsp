@@ -6,15 +6,12 @@
 <body>
 <h2>Welcome to Frog's Lil' Shop!</h2>
 <p>
-    <form action="LoginServlet" method="post">
+<form action="LoginServlet" method="post">
     Username: <input type="text" name="user"><br>
     Password: <input type="password" name="pass"><br>
 
-        <input type="submit" value="Login">
-    </form>
-    <form action="register.jsp" method="post">
-        <input type="submit" value="Register">
-    </form>
+    <input type="submit" value="Login">
+</form>
 </p>
 </body>
 </html>

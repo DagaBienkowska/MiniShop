@@ -1,7 +1,7 @@
-package com.dagabienkowska.jsp;
+package com.dagabienkowska.servlets;
 
-import com.dagabienkowska.DAO.Product;
-import com.dagabienkowska.DAO.Products;
+import com.dagabienkowska.shop.JsonPOJO;
+import com.dagabienkowska.shop.Product;
 import com.google.gson.Gson;
 
 import javax.servlet.RequestDispatcher;
@@ -22,12 +22,12 @@ public class ProductsListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        InputStream input = getServletContext().getResourceAsStream("/WEB-INF/jsonV1_json.js");
+        InputStream input = getServletContext().getResourceAsStream("/WEB-INF/jsonV1.json");
         Gson gson = new Gson();
         BufferedReader buffer = new BufferedReader(new InputStreamReader(input, "utf-8"));
         List<Product> productsList = new ArrayList<>();
 
-        Products products = gson.fromJson(buffer, Products.class);
+        JsonPOJO products = gson.fromJson(buffer, JsonPOJO.class);
         for (Product p : products.getProducts()){
             long id = p.getId();
             String name = p.getName();
@@ -41,7 +41,7 @@ public class ProductsListServlet extends HttpServlet {
         }
 
         req.getSession().setAttribute("products", productsList);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("product_list.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("product_list.servlets");
         requestDispatcher.forward(req, resp);
     }
 }
