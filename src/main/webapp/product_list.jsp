@@ -9,7 +9,29 @@
 </head>
 <body>
 <h3>Product List</h3>
-<p id="itemCount" align="right">Items in ShoppingCart: </p>
+<%
+    String userName = null;
+    Cookie[] cookies = request.getCookies();
+
+    if (cookies != null){
+        for (Cookie cookie : cookies){
+            if (cookie.getName().equals("userInCookie")){
+                userName = cookie.getValue();
+            }
+        }
+    }
+
+    if (userName == null){
+        response.sendRedirect("index.jsp");
+    }
+    int itemCounter = (int) request.getSession().getAttribute("itemCounter");
+
+%>
+<h2>Witaj użytkowniku <%=userName%>!</h2><br>
+<form action="Logout" method="post">
+    <input type="submit" value="Logout">
+</form>
+<p id="itemCount" align="right">Items in ShoppingCart: <%=itemCounter%></p>
 <p id="sumPrice" align="right">Price: </p>
 <table width="100%">
     <tr>
@@ -28,11 +50,16 @@
         <td><%=p.getDescription()%></td>
         <td><%=p.getPrice()%></td>
         <td><%=p.getQuantity()%></td>
-        <td width="25%"><button>Add</button></td>
+        <form method="post" action="cart">
+        <td width="25%"><button name="add" type="submit">Add</button></td>
+            <input type="hidden" name="addToCart" value="<%=p.getId()%>">
+
+        </form>
     </tr>
     <% } %>
 </table>
-<p id="cart" align="right"><button>Show Cart</button></p>
+
+<p id="cart" align="right"><button name="showCart" value="cart">Show Cart</button></p>
 </body>
 </html>
 

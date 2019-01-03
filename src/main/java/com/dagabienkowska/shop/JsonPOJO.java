@@ -1,10 +1,22 @@
 package com.dagabienkowska.shop;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class JsonPOJO {
-    private List<User> users;
-    private List<Product> products;
+    @SerializedName("users")
+    @Expose
+    private List<User> users = null;
+    @SerializedName("products")
+    @Expose
+    private List<Product> products = null;
+    @SerializedName("shoppingCarts")
+    @Expose
+    private List<ShoppingCart> shoppingCarts = null;
 
     public List<User> getUsers() {
         return users;
