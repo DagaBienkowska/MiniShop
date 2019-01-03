@@ -24,39 +24,53 @@
     if (userName == null){
         response.sendRedirect("index.jsp");
     }
-    int itemCounter = (int) request.getSession().getAttribute("itemCounter");
 
 %>
 <h2>Witaj użytkowniku <%=userName%>!</h2><br>
 <form action="Logout" method="post">
     <input type="submit" value="Logout">
 </form>
-<p id="itemCount" align="right">Items in ShoppingCart: <%=itemCounter%></p>
+<p id="itemCount" align="right">Items in ShoppingCart:</p>
 <p id="sumPrice" align="right">Price: </p>
-<table width="100%">
+<table>
     <tr>
-        <th width="20%">Name</th>
-        <th width="25%">Description</th>
-        <th width="15%">Price</th>
-        <th width="15%">In Stock</th>
+        <th width="20">ID</th>
+        <th width="200">Name</th>
+        <th width="300">Description</th>
+        <th width="100">Price</th>
+        <th width="100">Quantity</th>
+        <th width="50"></th>
     </tr>
     <%
-        List<Product> productsList = (List<Product>) request.getSession().getAttribute("products");
+        List<Product> products = (List<Product>) request.getAttribute("productList");
 
-        for (Product p : productsList){
+        for (Product p : products){
+
     %>
-    <tr>
-        <td><%=p.getName()%></td>
-        <td><%=p.getDescription()%></td>
-        <td><%=p.getPrice()%></td>
-        <td><%=p.getQuantity()%></td>
-        <form method="post" action="cart">
-        <td width="25%"><button name="add" type="submit">Add</button></td>
-            <input type="hidden" name="addToCart" value="<%=p.getId()%>">
+    <form action="AddProduct" method="post">
+        <tr>
+            <td width="20"><input readonly value="<%=p.getId()%>" name="product" type="hidden"><%=p.getId()%></td>
+            <td width="200"><%=p.getName()%></td>
+            <td width="300"><%=p.getDescription()%></td>
+            <td width="100"><%=p.getPrice()%></td>
+            <td width="100"><%=p.getQuantity()%></td>
+            <%
+                if (p.getQuantity() > 0) {
+            %>
+            <td width="50"><input type="submit" value="Add" /></td>
+            <%
+            } else {
+            %>
+            <td width="50"></td>
+            <%
+                }
+            %>
 
-        </form>
-    </tr>
-    <% } %>
+        </tr>
+    </form>
+    <%
+        }
+    %>
 </table>
 
 <p id="cart" align="right"><button name="showCart" value="cart">Show Cart</button></p>

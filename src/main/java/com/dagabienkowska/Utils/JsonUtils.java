@@ -12,24 +12,24 @@ public class JsonUtils {
     private static final Logger LOGGER = Logger.getLogger(JsonUtils.class.getName());//log z tej klasy
 
     private static final String JSONPATH =
-            "C:\\Users\\Froggy\\Desktop\\kurs_java\\Projekty\\JspSklep\\src\\main\\webapp\\WEB-INF\\jsonV1.json";
+            "C:\\Users\\Froggy\\Desktop\\kurs_java\\Projekty\\MiniShop\\src\\main\\webapp\\WEB-INF\\jsonV1.json";
     private static Gson gson = new Gson();
 
     public static JsonPOJO getJson(){
-        JsonPOJO jsonAccess;
+        JsonPOJO jsonPOJO;
         try{
             InputStream is = new FileInputStream(JSONPATH);
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader reader = new BufferedReader(isr);
-            jsonAccess = gson.fromJson(reader, JsonPOJO.class);
+            jsonPOJO = gson.fromJson(reader, JsonPOJO.class);
             is.close();
-            LOGGER.log(Level.INFO, "Fetched json" + jsonAccess);
+            LOGGER.log(Level.INFO, "Fetched json" + jsonPOJO);
         } catch (IOException e){
             LOGGER.log(Level.SEVERE, "IOException", e);
             throw new RuntimeException("Cannot find file");
         }
 
-        return jsonAccess;
+        return jsonPOJO;
     }
 
     public static void writeJson(JsonPOJO jsonAccess){
